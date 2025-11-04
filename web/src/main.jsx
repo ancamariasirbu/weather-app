@@ -22,13 +22,6 @@ const router = createBrowserRouter([
   },
 ]);
 
-// const router = createBrowserRouter([
-//   {path: "/", element: <Home />},
-//   {path:"/city/:name", element: <City />},
-//   {path:"/favorites", element: <Favorites />},
-//   {path:"*", element: <NotFoundPage />},
-// ]);
-
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

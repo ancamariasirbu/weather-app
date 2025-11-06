@@ -1,27 +1,28 @@
 import { useEffect, useState } from "react";
+import { getBaseUrl } from '../utils/api';
 
 function Home() {
   const [message, setMessage] = useState("Loading...");
 
   useEffect(() => {
-    let cancelled = false;
+    let mounted = true;
 
     async function loadMessage() {
       try {
-        const res = await fetch("/api/hello");
+        const res = await fetch(`${getBaseUrl()}/api/hello`);
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data = await res.json();
-        if (!cancelled) setMessage(data.message);
+        if (mounted) setMessage(data.message);
       } catch (err) {
         console.error("Failed to load message:", err);
-        if (!cancelled) setMessage("Error contacting server");
+        if (mounted) setMessage("Error contacting server");
       }
     }
 
     loadMessage();
 
     return () => {
-      cancelled = true;
+      mounted = false;
     };
   }, []);
 

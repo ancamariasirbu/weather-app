@@ -14,7 +14,7 @@ const router = createBrowserRouter([
     path: "/",
     element: <App />,
     children: [
-      { index: true, element: <Home /> }, // 👈 default route
+      { index: true, element: <Home /> }, // default route
       { path: "city/:cityName", element: <City /> },
       { path: "favorites", element: <Favorites /> },
       { path: "*", element: <NotFoundPage /> },

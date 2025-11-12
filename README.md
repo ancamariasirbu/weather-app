@@ -108,3 +108,79 @@ curl http://localhost:4000/api/hello # → {"message":"Hello from server"}
 
 - API: Wire `/api/weather` and `/api/forecast` (mock → real provider).
 - UI: Add React Router routes and a simple “Hello from server” fetch on Home.
+
+## API Contract
+
+### `/api/weather?city=NAME`
+
+Returns the **current weather** for a given city.
+
+**Example:**
+
+```json
+{
+  "city": "Berlin",
+  "country": "DE",
+  "coords": { "lat": 52.52, "lon": 13.405 },
+  "temp": 9.1,
+  "feelsLike": 7.8,
+  "condition": "Cloudy",
+  "windKph": 12,
+  "humidity": 76,
+  "sunrise": "07:03",
+  "sunset": "16:34",
+  "icon": "cloud"
+}
+```
+
+### Units:
+
+- Temperature: Celsius
+
+- Wind: km/h
+
+- Humidity: %
+
+- Time: 24h local time (HH:mm)
+
+### `/api/forecast?city=NAME`
+
+Returns a multi-day forecast for a given city.
+
+**Example:**
+
+```json
+{
+  "city": "Berlin",
+  "daily": [
+    {
+      "date": "2025-11-03",
+      "min": 4.2,
+      "max": 9.5,
+      "condition": "Cloudy",
+      "icon": "cloud"
+    },
+    {
+      "date": "2025-11-04",
+      "min": 3.8,
+      "max": 8.7,
+      "condition": "Rain",
+      "icon": "rain"
+    }
+  ]
+}
+```
+
+### Units:
+
+- Temperature: Celsius
+
+- Date: ISO format (YYYY-MM-DD)
+
+- Icon: simple keyword (cloud, sun, rain, etc.)
+
+### `fixtures/`
+
+- mock data you can later replace with real API results.
+
+---

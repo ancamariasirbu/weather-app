@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const express = require("express");
 const cors = require("cors");
 const app = express();
@@ -7,7 +9,6 @@ const weatherRouter = require("./routes/weather");
 const forecastRouter = require("./routes/forecast");
 
 const cacheMiddleware = require("./middleware/cache");
-
 
 
 app.use(cors({

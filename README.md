@@ -184,3 +184,9 @@ Returns a multi-day forecast for a given city.
 - mock data you can later replace with real API results.
 
 ---
+
+### Caching
+
+This API uses in-memory caching with [node-cache](https://www.npmjs.com/package/node-cache)  
+to store successful `/api/weather` and `/api/forecast` responses for ~10 minutes.  
+Logs show `[CACHE HIT]` or `[CACHE MISS]` in the terminal.

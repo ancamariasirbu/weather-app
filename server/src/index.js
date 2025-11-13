@@ -2,17 +2,20 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 const PORT = 4000;
+
 const weatherRouter = require("./routes/weather");
 const forecastRouter = require("./routes/forecast");
+
+const cacheMiddleware = require("./middleware/cache");
+
+
 
 app.use(cors({
   origin: "http://localhost:5173"
 }));
 
-app.use('/api/weather', weatherRouter);
-app.use('/api/forecast', forecastRouter);
-
-
+app.use('/api/weather', cacheMiddleware, weatherRouter);
+app.use('/api/forecast', cacheMiddleware, forecastRouter);
 
 app.get("/api/health", (req, res) => {
   res.json({ ok: true });

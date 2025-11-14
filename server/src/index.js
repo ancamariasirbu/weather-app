@@ -9,6 +9,7 @@ const weatherRouter = require("./routes/weather");
 const forecastRouter = require("./routes/forecast");
 
 const cacheMiddleware = require("./middleware/cache");
+const errorHandler = require("./middleware/error");
 
 
 app.use(cors({
@@ -26,6 +27,8 @@ app.get("/api/hello", (req, res) => {
   res.json({ message: "Hello from server" });
 })
 
+
+app.use(errorHandler);
 
 
 app.listen(PORT, () => {

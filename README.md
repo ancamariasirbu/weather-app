@@ -190,3 +190,95 @@ Returns a multi-day forecast for a given city.
 This API uses in-memory caching with [node-cache](https://www.npmjs.com/package/node-cache)  
 to store successful `/api/weather` and `/api/forecast` responses for ~10 minutes.  
 Logs show `[CACHE HIT]` or `[CACHE MISS]` in the terminal.
+
+# API Contract
+
+## Environment Variables
+
+- `WEATHER_PROVIDER` = `openmeteo`
+- `WEATHER_API_KEY` = no key required (leave empty)
+
+## Endpoints
+
+### 1. Get Current Weather
+
+`GET /api/weather?city=Berlin`
+
+**Query parameters:**
+
+- `city` (optional, default: "Berlin")
+
+**Response schema:**
+
+```json
+{
+  "city": "Berlin",
+  "country": "DE",
+  "coords": { "lat": 52.52, "lon": 13.405 },
+  "temp": 15.8,
+  "feelsLike": 15.8,
+  "condition": "Cloudy",
+  "windKph": 11.5,
+  "humidity": 70,
+  "sunrise": "07:00",
+  "sunset": "16:30",
+  "icon": "cloud"
+}
+```
+
+**Units:**
+
+- Temperature: °C
+
+- Wind: km/h
+
+- Humidity: %
+
+- Time: 24h local
+
+### 2. Get Forecast
+
+`GET /api/forecast?city=Berlin`
+
+**Query parameters:**
+
+`city` (optional, default: "Berlin")
+
+**Response schema:**
+
+```json
+{
+  "city": "Berlin",
+  "daily": [
+    {
+      "date": "2025-11-03",
+      "min": 4.2,
+      "max": 9.5,
+      "condition": "Cloudy",
+      "icon": "cloud"
+    },
+    {
+      "date": "2025-11-04",
+      "min": 3.8,
+      "max": 8.7,
+      "condition": "Rain",
+      "icon": "rain"
+    }
+  ]
+}
+```
+
+**Units:**
+
+- Temperature: °C
+
+- Date: ISO format YYYY-MM-DD
+
+- Condition icons: semantic tokens (cloud, sun, rain)
+
+### Example cURL Requests:
+
+```json
+curl http://localhost:4000/api/weather?city=Berlin
+curl http://localhost:4000/api/forecast?city=Berlin
+```

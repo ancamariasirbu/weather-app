@@ -10,8 +10,8 @@ function resolveCity(name) {
   const city = cities[name];
   if (!city) throw new Error(`City not found: ${name}`);
   return { city: name, ...city };
-  
 }
+
 
 
 module.exports = resolveCity;

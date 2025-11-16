@@ -1,7 +1,0 @@
-{
-  "city": "Berlin",
-  "daily": [
-    { "date": "2025-11-03", "min": 4.2, "max": 9.5, "condition": "Cloudy", "icon": "cloud" },
-    { "date": "2025-11-04", "min": 3.8, "max": 8.7, "condition": "Rain", "icon": "rain" }
-  ]
-}

@@ -1,10 +1,9 @@
 const express = require("express"); 
 const router = express.Router();
-// const forecastSample = require("../fixtures/forecast.sample.json");
 const createError = require("../lib/createError");
-const resolveCity = require("../lib/geo/resolveCity");
-const { getDaily } = require("../lib/providers/openMeteo");
+const { getDailyForecast, getCoordinates } = require("../lib/providers/openMeteo");
 const mapForecast = require("../lib/mapForecast");
+const mapCoordinates = require("../lib/mapCoordinates");
 
 
 router.get("/", async (req, res, next) => {
@@ -16,10 +15,12 @@ router.get("/", async (req, res, next) => {
 
 
   try {
-    const cityInfo = resolveCity(cityName);
-    const providerData = await getDaily(cityInfo.lat, cityInfo.lon);
-    const mapped = mapForecast(providerData, cityInfo);
-    res.json(mapped);
+    const cityRawData = await getCoordinates(cityName);
+    const mappedCityCoordinates = mapCoordinates(cityRawData);
+
+    const openMeteoData = await getDailyForecast(mappedCityCoordinates.lat, mappedCityCoordinates.lon);
+    const mappedDailyForecast = mapForecast(openMeteoData, mappedCityCoordinates);
+    res.json(mappedDailyForecast);
   } catch (err) {
     return next(createError("PROVIDER_ERROR", 500, err.message));
   }

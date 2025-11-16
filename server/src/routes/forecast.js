@@ -4,13 +4,20 @@ const createError = require("../lib/createError");
 const { getDailyForecast, getCoordinates } = require("../lib/providers/openMeteo");
 const mapForecast = require("../lib/mapForecast");
 const mapCoordinates = require("../lib/mapCoordinates");
+const validateCity = require("../helpers/validateCity");
 
 
 router.get("/", async (req, res, next) => {
   const cityName = req.query.city;
 
-     if (!cityName) {
+  if (!cityName) {
     return next(createError("BAD_REQUEST", 400, "city is required"));
+  } 
+
+  const isValidCity = validateCity(cityName);
+
+  if (!isValidCity) {
+    return next(createError("BAD_REQUEST", 400, "city is invalid"));
   } 
 
 

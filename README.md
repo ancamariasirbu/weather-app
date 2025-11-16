@@ -92,6 +92,7 @@ Both options let you switch between environments easily.
 ## Quick check
 
 curl http://localhost:4000/api/health # → {"ok":true}
+
 curl http://localhost:4000/api/hello # → {"message":"Hello from server"}
 
 ## Troubleshooting
@@ -178,12 +179,6 @@ Returns a multi-day forecast for a given city.
 - Date: ISO format (YYYY-MM-DD)
 
 - Icon: simple keyword (cloud, sun, rain, etc.)
-
-### `fixtures/`
-
-- mock data you can later replace with real API results.
-
----
 
 ### Caching
 

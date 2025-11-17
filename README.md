@@ -277,3 +277,23 @@ Logs show `[CACHE HIT]` or `[CACHE MISS]` in the terminal.
 curl http://localhost:4000/api/weather?city=Berlin
 curl http://localhost:4000/api/forecast?city=Berlin
 ```
+
+### Logging
+
+All requests are logged automatically in the terminal when running `npm run dev`. Each log line shows:
+
+- HTTP method (GET, POST, etc.)
+- Request path
+- Response status code
+- Duration in milliseconds
+- Cache info (`cache:hit` or `cache:miss`) if applicable
+
+Example:
+
+```bash
+GET /api/weather?city=Berlin 200 42ms cache:miss
+GET /api/weather?city=Berlin 200 3ms cache:hit
+GET /api/forecast?city=Berlin 200 58ms cache:miss
+```
+
+Logs are disabled when `NODE_ENV=test`.

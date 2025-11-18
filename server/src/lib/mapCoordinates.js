@@ -9,7 +9,7 @@ const mapped = {
     lon: currentCity.longitude,
   }
 
-  console.log('mapped city:', mapped);
+  // console.log('mapped city:', mapped);
   
   return mapped;
 }

@@ -32,4 +32,11 @@ describe('/api/forecast', () => {
     expect(res.body.daily.length).toBeGreaterThan(0);
 
   });
+    it('returns 400 if no city is provided', async () => {
+    const res = await request(app).get('/api/forecast'); // no city param
+
+    expect(res.statusCode).toBe(400);
+    expect(res.body.error).toBeDefined();
+    expect(res.body.error.message).toBeDefined();
+  });
 });

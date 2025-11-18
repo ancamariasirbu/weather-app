@@ -1,5 +1,4 @@
-require("dotenv").config({ silent: true });
-
+require("dotenv").config();
 
 const express = require("express");
 const cors = require("cors");
@@ -13,30 +12,26 @@ const cacheMiddleware = require("./middleware/cache");
 const errorHandler = require("./middleware/error");
 const limiter = require("./middleware/rateLimiter");
 
-
-app.use(cors({
-  origin: "http://localhost:5173"
-}));
-
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+  })
+);
 
 app.use(logger);
 app.use("/api", limiter);
 app.use(cacheMiddleware);
 
-
-app.use('/api/weather', weatherRouter);
-app.use('/api/forecast', forecastRouter);
-
+app.use("/api/weather", weatherRouter);
+app.use("/api/forecast", forecastRouter);
 
 app.get("/api/health", (req, res) => {
   res.json({ ok: true });
 });
 app.get("/api/hello", (req, res) => {
   res.json({ message: "Hello from server" });
-})
-
+});
 
 app.use(errorHandler);
-
 
 module.exports = app;

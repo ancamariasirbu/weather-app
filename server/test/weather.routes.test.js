@@ -3,22 +3,24 @@ jest.spyOn(global.console, "log").mockImplementation(() => {});
 const request = require("supertest");
 const app = require("../src/app");
 
-jest.mock("../src/lib/providers/openmeteo", () => ({
+jest.mock("../src/lib/providers/openMeteo", () => ({
   getCurrentWeather: jest.fn(() => ({
-    city: "Berlin",
-    country: "Germany",
-    coords: {
-      lat: 52.52437,
-      lon: 13.41053,
+    current_weather: {
+      temperature: 5.7,
+      windspeed: 18.5,
+      weathercode: 3,
     },
-    temp: 5.7,
-    feelsLike: 5.7,
-    condition: "Cloudy",
-    windKph: 18.5,
-    humidity: 70,
-    sunrise: "07:00",
-    sunset: "16:30",
-    icon: "cloud",
+  })),
+  getCoordinates: jest.fn(() => ({
+    results: [
+      {
+        name: "Berlin",
+        country: "Germany",
+        country_code: "DE",
+        latitude: 52.52437,
+        longitude: 13.41053,
+      },
+    ],
   })),
 }));
 

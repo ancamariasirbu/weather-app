@@ -3,16 +3,23 @@ jest.spyOn(global.console, "log").mockImplementation(() => {}); // there was an 
 const request = require("supertest");
 const app = require("../src/app");
 
-jest.mock("../src/lib/providers/openmeteo", () => ({
+jest.mock("../src/lib/providers/openMeteo", () => ({
   getDailyForecast: jest.fn(() => ({
-    city: "Berlin",
-    daily: [
+    daily: {
+      time: ["2025-11-18"],
+      temperature_2m_min: [1.1],
+      temperature_2m_max: [5.9],
+      weathercode: [61],
+    },
+  })),
+  getCoordinates: jest.fn(() => ({
+    results: [
       {
-        date: "2025-11-18",
-        min: 1.1,
-        max: 5.9,
-        condition: "Rain",
-        icon: "rain",
+        name: "Berlin",
+        country: "Germany",
+        country_code: "DE",
+        latitude: 52.52437,
+        longitude: 13.41053,
       },
     ],
   })),

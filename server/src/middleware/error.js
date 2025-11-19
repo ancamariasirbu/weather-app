@@ -1,5 +1,8 @@
 function errorHandler(err, req, res, next) {
-  console.error("ERROR:", err);
+  if (process.env.NODE_ENV !== "test") {
+      console.error("ERROR:", err);
+    }
+
 
   const status = err.status || 500;
   const code = err.code || "INTERNAL_ERROR";

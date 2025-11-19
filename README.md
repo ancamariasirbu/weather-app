@@ -110,82 +110,6 @@ curl http://localhost:4000/api/hello # → {"message":"Hello from server"}
 - API: Wire `/api/weather` and `/api/forecast` (mock → real provider).
 - UI: Add React Router routes and a simple “Hello from server” fetch on Home.
 
-## API Contract
-
-### `/api/weather?city=NAME`
-
-Returns the **current weather** for a given city.
-
-**Example:**
-
-```json
-{
-  "city": "Berlin",
-  "country": "DE",
-  "coords": { "lat": 52.52, "lon": 13.405 },
-  "temp": 9.1,
-  "feelsLike": 7.8,
-  "condition": "Cloudy",
-  "windKph": 12,
-  "humidity": 76,
-  "sunrise": "07:03",
-  "sunset": "16:34",
-  "icon": "cloud"
-}
-```
-
-### Units:
-
-- Temperature: Celsius
-
-- Wind: km/h
-
-- Humidity: %
-
-- Time: 24h local time (HH:mm)
-
-### `/api/forecast?city=NAME`
-
-Returns a multi-day forecast for a given city.
-
-**Example:**
-
-```json
-{
-  "city": "Berlin",
-  "daily": [
-    {
-      "date": "2025-11-03",
-      "min": 4.2,
-      "max": 9.5,
-      "condition": "Cloudy",
-      "icon": "cloud"
-    },
-    {
-      "date": "2025-11-04",
-      "min": 3.8,
-      "max": 8.7,
-      "condition": "Rain",
-      "icon": "rain"
-    }
-  ]
-}
-```
-
-### Units:
-
-- Temperature: Celsius
-
-- Date: ISO format (YYYY-MM-DD)
-
-- Icon: simple keyword (cloud, sun, rain, etc.)
-
-### Caching
-
-This API uses in-memory caching with [node-cache](https://www.npmjs.com/package/node-cache)  
-to store successful `/api/weather` and `/api/forecast` responses for ~10 minutes.  
-Logs show `[CACHE HIT]` or `[CACHE MISS]` in the terminal.
-
 # API Contract
 
 ## Environment Variables
@@ -277,6 +201,58 @@ Logs show `[CACHE HIT]` or `[CACHE MISS]` in the terminal.
 curl http://localhost:4000/api/weather?city=Berlin
 curl http://localhost:4000/api/forecast?city=Berlin
 ```
+
+## Common Errors
+
+### **400 – BAD_REQUEST**
+
+Returned when:
+
+- `city` contains invalid characters
+- `city` query param missing (if you enforce it)
+- validation regex fails
+
+Example:
+
+```json
+{
+  "error": {
+    "code": "BAD_REQUEST",
+    "message": "Invalid city name"
+  }
+}
+```
+
+### **404 – CITY_NOT_FOUND**
+
+Returned when the `city` is not in your static resolver:
+
+```json
+{
+  "error": {
+    "code": "CITY_NOT_FOUND",
+    "message": "City 'Gotham' is not supported"
+  }
+}
+```
+
+### **429 – TOO_MANY_REQUESTS**
+
+Returned when the per-IP limit is exceeded:
+
+```json
+{
+  "error": {
+    "code": "TOO_MANY_REQUESTS",
+    "message": "Too many requests, please try again later"
+  }
+}
+```
+
+### Caching
+
+This API uses in-memory caching with [node-cache](https://www.npmjs.com/package/node-cache)  
+to store successful `/api/weather` and `/api/forecast` responses for ~10 minutes.
 
 ### Logging
 

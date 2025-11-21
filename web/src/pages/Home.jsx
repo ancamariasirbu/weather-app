@@ -1,38 +1,23 @@
-import { useEffect, useState } from "react";
-import { getBaseUrl } from '../utils/api';
+import { useState } from "react";
+import SearchBar from "../components/SearchBar";
 
 function Home() {
-  const [message, setMessage] = useState("Loading...");
+  const [city, setCity] = useState("");
 
-  useEffect(() => {
-    let mounted = true;
-
-    async function loadMessage() {
-      try {
-        const res = await fetch(`${getBaseUrl()}/api/hello`);
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const data = await res.json();
-        if (mounted) setMessage(data.message);
-      } catch (err) {
-        console.error("Failed to load message:", err);
-        if (mounted) setMessage("Error contacting server");
-      }
-    }
-
-    loadMessage();
-
-    return () => {
-      mounted = false;
-    };
-  }, []);
+  function handleSearch(cityName) {
+    console.log("Searched for:", cityName);
+    setCity(cityName);
+  }
 
   return (
     <div>
-      <h1>{message}</h1>
+      <h1>Weather App</h1>
+      <SearchBar onSearch={handleSearch} />
+
+      {/* Temporary output just to verify the component works */}
+      {city && <p>Showing weather for: {city}</p>}
     </div>
   );
 }
-
-
 
 export default Home;

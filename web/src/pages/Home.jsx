@@ -9,6 +9,7 @@ function Home() {
   const [city, setCity] = useState("");
   const [weatherData, setWeatherData] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   function handleSearch(cityName) {
     console.log("Searched for:", cityName);
@@ -20,6 +21,7 @@ function Home() {
 
     async function loadWeather() {
       setLoading(true);
+      setError(false);
 
       try {
         const res = await fetch(`${getBaseUrl()}/api/weather?city=${city}`);
@@ -28,13 +30,16 @@ function Home() {
         if (data.error) {
           console.error("Error fetching weather data:", data.error);
           setWeatherData(null);
+          setError(true);
           return;
         }
 
         setWeatherData(data);
+        setError(false);
       } catch (err) {
         console.error("Failed to fetch weather data:", err);
         setWeatherData(null);
+        setError(true);
       } finally {
         setLoading(false);
       }
@@ -50,7 +55,7 @@ function Home() {
 
       {loading && <Loader />}
 
-      {weatherData === null && city && (
+      {error && !loading && (
         <ErrorBanner
           message="City not found. Please try again or check the spelling."
           onRetry={() => setCity({ city })}

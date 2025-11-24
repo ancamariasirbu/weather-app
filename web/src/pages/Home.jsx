@@ -2,10 +2,12 @@ import { useState, useEffect } from "react";
 import SearchBar from "../components/SearchBar";
 import WeatherCard from "../components/WeatherCard";
 import { getBaseUrl } from "../utils/api";
+import Loader from "../components/Loader";
 
 function Home() {
   const [city, setCity] = useState("");
   const [weatherData, setWeatherData] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   function handleSearch(cityName) {
     console.log("Searched for:", cityName);
@@ -16,6 +18,8 @@ function Home() {
     if (!city) return;
 
     async function loadWeather() {
+      setLoading(true);
+
       try {
         const res = await fetch(`${getBaseUrl()}/api/weather?city=${city}`);
         const data = await res.json();
@@ -30,6 +34,8 @@ function Home() {
       } catch (err) {
         console.error("Failed to fetch weather data:", err);
         setWeatherData(null);
+      } finally {
+        setLoading(false);
       }
     }
 
@@ -41,7 +47,7 @@ function Home() {
       <h1>Weather App</h1>
       <SearchBar onSearch={handleSearch} />
 
-      {/* {city && !weatherData && <p>Loading weather for: {city}…</p>} */}
+      {loading && <Loader />}
 
       {weatherData === null && city && (
         <p style={{ color: "red" }}>
@@ -49,7 +55,7 @@ function Home() {
         </p>
       )}
 
-      {weatherData && (
+      {weatherData && !loading && (
         <WeatherCard
           city={weatherData.city}
           country={weatherData.country}

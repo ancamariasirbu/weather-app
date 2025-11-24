@@ -20,6 +20,7 @@ A simple full-stack weather app with an Express backend and a Vite + React front
 From the project root:
 
 ```bash
+npm install
 npm install --prefix server
 npm install --prefix web
 ```

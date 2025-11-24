@@ -7,7 +7,7 @@ function WeatherCard(props) {
     <div
       className="weather-card"
       onClick={() => {
-        navigate("/city/${city}");
+        navigate(`/city/${props.city}`);
       }}
       role="button"
       tabIndex={0}

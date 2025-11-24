@@ -51,11 +51,8 @@ function Home() {
       {loading && <Loader />}
 
       {weatherData === null && city && (
-        // <p style={{ color: "red" }}>
-        //   City not found. Please check your spelling.
-        // </p>
         <ErrorBanner
-          message="City not found. Please try again."
+          message="City not found. Please try again or check the spelling."
           onRetry={() => setCity({ city })}
         />
       )}

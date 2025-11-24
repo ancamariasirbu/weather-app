@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import SearchBar from "../components/SearchBar";
-import WeatherCard from "../components/WeatherCard";
+import SearchBar from "../components/SearchBar/SearchBar";
+import WeatherCard from "../components/WeatherCard/WeatherCard";
 import { getBaseUrl } from "../utils/api";
-import Loader from "../components/Loader";
-import ErrorBanner from "../components/ErrorBanner";
+import Loader from "../components/Loader/Loader";
+import ErrorBanner from "../components/ErrorBanner/ErrorBanner";
 
 function Home() {
   const [city, setCity] = useState("");

@@ -3,6 +3,7 @@ import SearchBar from "../components/SearchBar";
 import WeatherCard from "../components/WeatherCard";
 import { getBaseUrl } from "../utils/api";
 import Loader from "../components/Loader";
+import ErrorBanner from "../components/ErrorBanner";
 
 function Home() {
   const [city, setCity] = useState("");
@@ -50,9 +51,13 @@ function Home() {
       {loading && <Loader />}
 
       {weatherData === null && city && (
-        <p style={{ color: "red" }}>
-          City not found. Please check your spelling.
-        </p>
+        // <p style={{ color: "red" }}>
+        //   City not found. Please check your spelling.
+        // </p>
+        <ErrorBanner
+          message="City not found. Please try again."
+          onRetry={() => setCity({ city })}
+        />
       )}
 
       {weatherData && !loading && (

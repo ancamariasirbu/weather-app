@@ -19,7 +19,6 @@ function Home() {
 
     async function loadWeather() {
       setLoading(true);
-      await new Promise((resolve) => setTimeout(resolve, 1500)); // 1.5s delay
 
       try {
         const res = await fetch(`${getBaseUrl()}/api/weather?city=${city}`);

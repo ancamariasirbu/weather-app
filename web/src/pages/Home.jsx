@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react";
 import SearchBar from "../components/SearchBar/SearchBar";
 import WeatherCard from "../components/WeatherCard/WeatherCard";
+import ForecastList from "../components/ForecastList/ForecastList";
 import { getBaseUrl } from "../utils/api";
 import Loader from "../components/Loader/Loader";
 import ErrorBanner from "../components/ErrorBanner/ErrorBanner";
 
 function Home() {
   const [city, setCity] = useState("");
-  const [weatherData, setWeatherData] = useState(null);
+  const [weather, setWeather] = useState(null);
+  const [forecast, setForecast] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
@@ -24,21 +26,32 @@ function Home() {
       setError(false);
 
       try {
-        const res = await fetch(`${getBaseUrl()}/api/weather?city=${city}`);
-        const data = await res.json();
+        const resDaily = await fetch(
+          `${getBaseUrl()}/api/weather?city=${city}`
+        );
+        const dataDaily = await resDaily.json();
 
-        if (data.error) {
-          console.error("Error fetching weather data:", data.error);
-          setWeatherData(null);
+        const resForecast = await fetch(
+          `${getBaseUrl()}/api/forecast?city=${city}`
+        );
+        const dataForecast = await resForecast.json();
+
+        if (dataDaily.error || dataForecast.error) {
+          console.error("Error fetching weather data:", dataDaily.error);
+          setWeather(null);
+          setForecast(null);
           setError(true);
           return;
         }
 
-        setWeatherData(data);
+        setWeather(dataDaily);
+        setForecast(dataForecast);
+
         setError(false);
       } catch (err) {
-        console.error("Failed to fetch weather data:", err);
-        setWeatherData(null);
+        console.error("Failed to fetch data:", err);
+        setWeather(null);
+        setForecast(null);
         setError(true);
       } finally {
         setLoading(false);
@@ -62,16 +75,24 @@ function Home() {
         />
       )}
 
-      {weatherData && !loading && (
+      {weather && !loading && (
         <WeatherCard
-          city={weatherData.city}
-          country={weatherData.country}
-          temp={weatherData.temp}
-          feelsLike={weatherData.feelsLike}
-          condition={weatherData.condition}
-          windKph={weatherData.windKph}
-          humidity={weatherData.humidity}
+          city={weather.city}
+          country={weather.country}
+          temp={weather.temp}
+          feelsLike={weather.feelsLike}
+          condition={weather.condition}
+          windKph={weather.windKph}
+          humidity={weather.humidity}
         />
+      )}
+
+      {forecast && !loading && (
+        <>
+          <h2>5-day Forecast</h2>
+          <ForecastList days={forecast.daily} />
+          {/* dev-defined prop, forecast.daily comes from backend */}
+        </>
       )}
     </div>
   );

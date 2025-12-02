@@ -8,7 +8,7 @@ function SearchBar({ onSearch }) {
     event.preventDefault();
 
     const trimmed = value.trim();
-    
+
     // if empty string, do nothing
     if (!trimmed) return;
 

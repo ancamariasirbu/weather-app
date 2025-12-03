@@ -4,68 +4,72 @@ import { getBaseUrl } from "../utils/api";
 import FavoriteCard from "../components/FavoriteCard/FavoriteCard";
 import Loader from "../components/Loader/Loader";
 
-function Favorites() {
+export default function Favorites() {
   const { favorites } = useFavorites();
-  const [favWeather, setFavWeather] = useState([]);
-  const [loading, setLoading] = useState(false);
+
+  const [weather, setWeather] = useState({}); // { berlin: {...}, london: {...} }
+  const [loading, setLoading] = useState({}); // { berlin: true, london: false }
 
   useEffect(() => {
-    if (favorites.length === 0) {
-      setFavWeather([]);
-      return;
-    }
+    // Reset state when favorites change
+    const initialLoading = Object.fromEntries(
+      favorites.map((city) => [city, true])
+    );
 
-    async function loadFavorites() {
-      setLoading(true);
+    const initialWeather = Object.fromEntries(
+      favorites.map((city) => [city, null])
+    );
 
+    setLoading(initialLoading);
+    setWeather(initialWeather);
+
+    // Fetch each city individually
+    favorites.forEach(async (city) => {
       try {
-        const results = await Promise.all(
-          favorites.map(async (city) => {
-            const res = await fetch(`${getBaseUrl()}/api/weather?city=${city}`);
-            const json = await res.json();
+        const res = await fetch(`${getBaseUrl()}/api/weather?city=${city}`);
+        const json = await res.json();
 
-            if (json.error) {
-              return { city, error: true };
-            }
-
-            return json;
-          })
-        );
-
-        setFavWeather(results);
-        console.log("Favorite weather data:", results);
-      } catch (err) {
-        console.error("Failed to load favorite weather:", err);
+        setWeather((prev) => ({
+          ...prev,
+          [city]: json.error ? { error: true } : json,
+        }));
+      } catch {
+        setWeather((prev) => ({
+          ...prev,
+          [city]: { error: true },
+        }));
       } finally {
-        setLoading(false);
+        setLoading((prev) => ({ ...prev, [city]: false }));
       }
-    }
-
-    loadFavorites();
+    });
   }, [favorites]);
 
   return (
     <div>
       <h1>Favorite Cities</h1>
 
-      {loading && <Loader />}
+      {favorites.map((city) => {
+        const item = weather[city];
+        const isLoading = loading[city];
 
-      {favWeather.map((item) =>
-        item.error ? (
-          <p key={item.city}>Could not load {item.city}</p>
-        ) : (
-          <FavoriteCard
-            key={item.city}
-            city={item.city}
-            country={item.country}
-            temp={item.temp}
-            condition={item.condition}
-            icon={item.icon}
-          />
-        )
-      )}
+        return (
+          <div key={city}>
+            {isLoading && <Loader />}
+
+            {!isLoading && item?.error && <p>Could not load {city}</p>}
+
+            {!isLoading && item && !item.error && (
+              <FavoriteCard
+                city={item.city}
+                country={item.country}
+                temp={item.temp}
+                condition={item.condition}
+                icon={item.icon}
+              />
+            )}
+          </div>
+        );
+      })}
     </div>
   );
 }
-
-export default Favorites;

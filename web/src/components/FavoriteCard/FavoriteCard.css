@@ -8,3 +8,8 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   margin-top: 20px;
 }
+
+.favorite-card:hover {
+  cursor: pointer;
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}

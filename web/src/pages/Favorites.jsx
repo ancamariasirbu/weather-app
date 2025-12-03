@@ -59,6 +59,8 @@ function Favorites() {
             city={item.city}
             country={item.country}
             temp={item.temp}
+            condition={item.condition}
+            icon={item.icon}
           />
         )
       )}

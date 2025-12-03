@@ -17,8 +17,10 @@ function WeatherCard(props) {
       <h2>
         {props.city ?? "—"}, {props.country ?? "—"}
       </h2>
-
-      <h3>Condition: {props.condition ?? "—"}</h3>
+      <div>
+        <span className="current-icon">{props.icon}</span>
+        {props.condition}
+      </div>
 
       <p>Feels like: {props.feelsLike ?? "—"}°C</p>
       <p>Wind: {props.windKph ?? "—"} km/h</p>

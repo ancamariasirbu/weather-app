@@ -84,6 +84,7 @@ function Home() {
           condition={weather.condition}
           windKph={weather.windKph}
           humidity={weather.humidity}
+          icon={weather.icon}
         />
       )}
 

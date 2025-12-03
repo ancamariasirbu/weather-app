@@ -17,6 +17,10 @@ function FavoriteCard(props) {
       <h2>
         {props.city ?? "—"}, {props.country ?? "—"}
       </h2>
+      <div>
+        <span className="current-icon">{props.icon}</span>
+        {props.condition}
+      </div>
       <FavoriteButton city={props.city} />
     </div>
   );

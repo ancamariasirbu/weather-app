@@ -16,6 +16,7 @@ function FavoriteButton({ city }) {
   return (
     <div className="favorite-button">
       <button
+        className="favorite-btn"
         onClick={(e) => {
           e.stopPropagation();
           handleClick();

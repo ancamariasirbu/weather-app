@@ -63,7 +63,6 @@ function Home() {
 
   return (
     <div>
-      <h1>Weather App</h1>
       <SearchBar onSearch={handleSearch} />
 
       {loading && <Loader />}

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./SearchBar.css";
+import searchIcon from "../../assets/search-icon-cream.svg";
 
 function SearchBar({ onSearch }) {
   const [value, setValue] = useState("");
@@ -20,13 +21,16 @@ function SearchBar({ onSearch }) {
       <label htmlFor="city-input"></label>
 
       <input
+        className="search-input"
         id="city-input"
         type="text"
         placeholder="Search city…"
         onChange={(e) => setValue(e.target.value)}
       />
 
-      <button type="submit">Search</button>
+      <button className="search-btn" type="submit">
+        <img className="search-icon" src={searchIcon} alt="Icon" />
+      </button>
     </form>
   );
 }

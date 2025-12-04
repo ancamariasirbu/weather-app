@@ -9,7 +9,7 @@ form {
   background: transparent;
   border-radius: 25px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(248, 240, 227, 0.3);
+  border: 1px solid rgba(249, 246, 241, 0.5);
   transition: border-color 0.25s;
 }
 
@@ -20,6 +20,10 @@ form {
   padding: 8px;
   background-color: transparent;
   width: 100%;
+}
+
+.search-input::placeholder {
+  color: rgba(249, 246, 241, 0.7);
 }
 
 form:hover {

@@ -5,9 +5,10 @@ import ForecastList from "../components/ForecastList/ForecastList";
 import { getBaseUrl } from "../utils/api";
 import Loader from "../components/Loader/Loader";
 import ErrorBanner from "../components/ErrorBanner/ErrorBanner";
+import { getRandomCityName } from "../utils/getRandomCityName";
 
 function Home() {
-  const [city, setCity] = useState("");
+  const [city, setCity] = useState(getRandomCityName() || "");
   const [weather, setWeather] = useState(null);
   const [forecast, setForecast] = useState(null);
   const [loading, setLoading] = useState(false);

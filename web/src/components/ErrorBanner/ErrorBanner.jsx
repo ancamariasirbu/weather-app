@@ -4,7 +4,11 @@ function ErrorBanner({ message, onRetry }) {
   return (
     <div role="alert">
       <p className="errorMessage">{message}</p>
-      {onRetry && <button onClick={onRetry}>Retry</button>}
+      {onRetry && (
+        <button className="retry-btn" onClick={onRetry}>
+          Retry
+        </button>
+      )}
     </div>
   );
 }

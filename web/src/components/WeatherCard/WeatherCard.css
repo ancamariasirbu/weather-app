@@ -1,14 +1,70 @@
 .weather-card {
   position: relative;
-  background-color: #1e1e1e;
-  border-radius: 12px;
+  display: flex;
+  background-color: transparent;
+  border: 1px solid rgba(73, 72, 72, 0.3);
+
+  border-radius: 25px;
   padding: 20px;
-  max-width: 300px;
+  width: 50%;
+  height: 400px;
+  margin: 0 auto;
   color: #ffffff;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   margin-top: 20px;
 }
 
-.current-icon {
-  margin-right: 6px;
+.weather-icon {
+  font-size: 10rem;
+}
+
+.weather-icon-container {
+  flex: 5;
+  margin: auto;
+}
+
+.weather-info {
+  flex: 5;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* vertical centering */
+  align-items: flex-start; /* horizontal left alignment */
+  height: 100%;
+}
+
+.location-heading {
+  display: flex;
+  align-items: baseline; /* keeps the bottoms aligned */
+  gap: 0.25rem; /* small spacing between the elements */
+}
+
+.location-heading h1,
+.location-heading h2 {
+  margin: 0;
+  padding: 0;
+}
+
+.location-heading h1 {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.location-heading h2 {
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: rgb(73, 72, 72); /* optional styling */
+}
+
+p {
+  margin: 0.5rem 0 0 0;
+}
+
+.temp-cond-row {
+  display: flex;
+  align-items: baseline; /* nice alignment for text */
+  gap: 0.5rem; /* spacing between temp and condition */
+}
+
+.temp-cond-row h3 {
+  margin: 18px 0;
 }

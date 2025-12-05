@@ -90,7 +90,6 @@ function Home() {
 
       {forecast && !loading && (
         <>
-          <h2>5-day Forecast</h2>
           <ForecastList days={forecast.daily} />
           {/* dev-defined prop, forecast.daily comes from backend */}
         </>

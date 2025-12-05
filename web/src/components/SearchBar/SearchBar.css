@@ -2,9 +2,8 @@ form {
   display: flex;
   align-items: center;
   padding: 8px 12px;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  min-width: 400px;
+  margin: 20px auto;
+  max-width: 400px;
 
   background: transparent;
   border-radius: 25px;

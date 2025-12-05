@@ -13,18 +13,25 @@ function WeatherCard(props) {
       // role="button"
       // tabIndex={0}
     >
-      <h1>{props.temp ?? "—"}°C</h1>
-      <h2>
-        {props.city ?? "—"}, {props.country ?? "—"}
-      </h2>
-      <div>
-        <span className="current-icon">{props.icon}</span>
-        {props.condition}
+      <div className="weather-icon-container">
+        <span className="weather-icon">{props.icon}</span>
+      </div>
+      <div className="weather-info">
+        <p>Today</p>
+        <div className="location-heading">
+          <h1>{props.city ?? "—"},</h1>
+          <h2>{props.country ?? "—"}</h2>
+        </div>
+        <div className="temp-cond-row">
+          <h3>{props.temp ?? "—"}°C,</h3>
+          <div>{props.condition}</div>
+        </div>
+
+        <p>Feels like: {props.feelsLike ?? "—"}°C</p>
+        <p>Wind: {props.windKph ?? "—"} km/h</p>
+        <p>Humidity: {props.humidity ?? "—"}%</p>
       </div>
 
-      <p>Feels like: {props.feelsLike ?? "—"}°C</p>
-      <p>Wind: {props.windKph ?? "—"} km/h</p>
-      <p>Humidity: {props.humidity ?? "—"}%</p>
       <FavoriteButton city={props.city} />
     </div>
   );

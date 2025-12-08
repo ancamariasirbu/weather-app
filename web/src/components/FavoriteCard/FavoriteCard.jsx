@@ -13,14 +13,14 @@ function FavoriteCard(props) {
       role="button"
       tabIndex={0}
     >
-      <h1>{props.temp ?? "—"}°C</h1>
+      <div>
+        <span className="current-icon">{props.icon}</span>
+      </div>
+      <p>{props.temp ?? "—"}°C</p>
       <h2>
         {props.city ?? "—"}, {props.country ?? "—"}
       </h2>
-      <div>
-        <span className="current-icon">{props.icon}</span>
-        {props.condition}
-      </div>
+
       <FavoriteButton city={props.city} />
     </div>
   );

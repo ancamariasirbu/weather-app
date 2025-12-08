@@ -1,0 +1,33 @@
+.navbar {
+  width: 100%;
+  padding: 12px 30px;
+  box-sizing: border-box;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  display: flex;
+  align-items: center;
+
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(3px);
+  z-index: 1000;
+}
+
+.nav-item {
+  font-size: 1rem;
+  font-weight: 500;
+  color: rgb(231, 230, 230);
+  text-decoration: none;
+  transition: 0.2s;
+  margin-right: 20px;
+}
+
+.nav-item:hover {
+  opacity: 0.7;
+}
+
+.nav-item.active {
+  text-decoration: underline;
+}

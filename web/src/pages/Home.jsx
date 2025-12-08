@@ -90,7 +90,7 @@ function Home() {
 
       {forecast && !loading && (
         <>
-          <ForecastList days={forecast.daily} />
+          <ForecastList days={forecast.daily.slice(1)} />
           {/* dev-defined prop, forecast.daily comes from backend */}
         </>
       )}

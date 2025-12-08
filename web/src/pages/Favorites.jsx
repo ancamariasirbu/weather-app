@@ -45,9 +45,7 @@ export default function Favorites() {
   }, [favorites]);
 
   return (
-    <div>
-      <h1>Favorite Cities</h1>
-
+    <div className="favorites-grid">
       {favorites.map((city) => {
         const item = weather[city];
         const isLoading = loading[city];

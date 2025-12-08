@@ -29,5 +29,5 @@
 }
 
 .nav-item.active {
-  text-decoration: underline;
+  color: rgb(27, 51, 78);
 }

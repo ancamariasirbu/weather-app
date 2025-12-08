@@ -1,17 +1,36 @@
 .weather-card {
   position: relative;
   display: flex;
-  background-color: transparent;
-  border: 1px solid rgba(73, 72, 72, 0.3);
 
+  background-color: rgba(19, 114, 181, 0.227);
+  border: 1px solid rgba(73, 72, 72, 0.3);
   border-radius: 25px;
+
   padding: 20px;
   width: 50%;
   height: 400px;
   margin: 0 auto;
+
   color: #ffffff;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   margin-top: 20px;
+  backdrop-filter: blur(10px);
+}
+
+.weather-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 40%;
+  border-radius: 25px;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.45),
+    rgba(255, 255, 255, 0)
+  );
+  pointer-events: none;
 }
 
 .weather-icon {
@@ -27,15 +46,15 @@
   flex: 5;
   display: flex;
   flex-direction: column;
-  justify-content: center; /* vertical centering */
-  align-items: flex-start; /* horizontal left alignment */
+  justify-content: center;
+  align-items: flex-start;
   height: 100%;
 }
 
 .location-heading {
   display: flex;
-  align-items: baseline; /* keeps the bottoms aligned */
-  gap: 0.25rem; /* small spacing between the elements */
+  align-items: baseline;
+  gap: 0.25rem;
 }
 
 .location-heading h1,
@@ -60,8 +79,8 @@ p {
 
 .temp-cond-row {
   display: flex;
-  align-items: baseline; /* nice alignment for text */
-  gap: 0.5rem; /* spacing between temp and condition */
+  align-items: baseline;
+  gap: 0.5rem;
 }
 
 .temp-cond-row h3 {

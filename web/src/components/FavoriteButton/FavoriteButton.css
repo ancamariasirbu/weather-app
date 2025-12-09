@@ -8,13 +8,14 @@
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: inherit;
+  background-color: transparent;
   cursor: pointer;
   transition: border-color 0.25s;
+  color: white;
 }
 
 .favorite-btn:hover {
-  border-color: #646cff;
+  border-color: #649fff;
 }
 .favorite-btn:focus,
 .favorite-btn:focus-visible {

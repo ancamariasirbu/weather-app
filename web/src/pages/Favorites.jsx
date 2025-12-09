@@ -11,37 +11,44 @@ export default function Favorites() {
   const [loading, setLoading] = useState({}); // { berlin: true, london: false }
 
   useEffect(() => {
-    // Reset state when favorites change
+    if (favorites.length === 0) return;
+
+    // 1. Set loading state
     const initialLoading = Object.fromEntries(
       favorites.map((city) => [city, true])
     );
-
-    const initialWeather = Object.fromEntries(
-      favorites.map((city) => [city, null])
-    );
-
     setLoading(initialLoading);
-    setWeather(initialWeather);
 
-    // Fetch each city individually
-    favorites.forEach(async (city) => {
+    async function loadMultiWeather() {
       try {
-        const res = await fetch(`${getBaseUrl()}/api/weather?city=${city}`);
-        const json = await res.json();
+        const res = await fetch(
+          `${getBaseUrl()}/api/weather/multi?cities=${favorites.join(",")}`
+        );
+        const json = await res.json(); // { berlin: {...}, london: {...} }
 
-        setWeather((prev) => ({
-          ...prev,
-          [city]: json.error ? { error: true } : json,
-        }));
+        // 2. Update weather state for each city
+        const newWeather = {};
+        for (const city of favorites) {
+          newWeather[city] = json[city] || { error: true };
+        }
+
+        setWeather(newWeather);
       } catch {
-        setWeather((prev) => ({
-          ...prev,
-          [city]: { error: true },
-        }));
+        // fallback: mark all as error
+        const failed = Object.fromEntries(
+          favorites.map((city) => [city, { error: true }])
+        );
+        setWeather(failed);
       } finally {
-        setLoading((prev) => ({ ...prev, [city]: false }));
+        // 3. Mark all as loaded
+        const doneLoading = Object.fromEntries(
+          favorites.map((city) => [city, false])
+        );
+        setLoading(doneLoading);
       }
-    });
+    }
+
+    loadMultiWeather();
   }, [favorites]);
 
   return (

@@ -1,5 +1,5 @@
 import "./FavoriteButton.css";
-import useFavorites from "../../hooks/useFavorites";
+import { useFavorites } from "../../contexts/FavoritesContext";
 
 function FavoriteButton({ city }) {
   const { isFavorite, add, remove } = useFavorites();

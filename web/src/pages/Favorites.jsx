@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useFavorites } from "../hooks/useFavorites";
+import { useFavorites } from "../contexts/FavoritesContext";
 import { getBaseUrl } from "../utils/api";
 import FavoriteCard from "../components/FavoriteCard/FavoriteCard";
 import Loader from "../components/Loader/Loader";

@@ -1,18 +1,9 @@
 import "./WeatherCard.css";
-// import { useNavigate } from "react-router-dom";
 import FavoriteButton from "../FavoriteButton/FavoriteButton";
 
 function WeatherCard(props) {
-  // let navigate = useNavigate();
   return (
-    <div
-      className="weather-card"
-      // onClick={() => {
-      //   navigate(`/city/${props.city}`);
-      // }}
-      // role="button"
-      // tabIndex={0}
-    >
+    <div className="weather-card">
       <div className="weather-icon-container">
         <span className="weather-icon">{props.icon}</span>
       </div>

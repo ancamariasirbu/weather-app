@@ -3,7 +3,7 @@ import useCityWeather from "../hooks/useCityWeather";
 import WeatherCard from "../components/WeatherCard/WeatherCard";
 import ForecastList from "../components/ForecastList/ForecastList";
 import Loader from "../components/Loader/Loader";
-import ErrorBanner from "../components/ErrorBanner/ErrorBanner";
+import { ErrorText } from "../components/ErrorBanner/ErrorBanner";
 
 export default function CityPage() {
   const { cityName } = useParams();
@@ -14,9 +14,7 @@ export default function CityPage() {
     <div>
       {loading && <Loader />}
 
-      {error && !loading && (
-        <ErrorBanner message="City not found or could not load data." />
-      )}
+      {error && !loading && <ErrorText />}
 
       {weather && !loading && (
         <WeatherCard

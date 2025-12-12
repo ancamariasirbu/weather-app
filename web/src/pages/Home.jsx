@@ -3,7 +3,7 @@ import SearchBar from "../components/SearchBar/SearchBar";
 import WeatherCard from "../components/WeatherCard/WeatherCard";
 import ForecastList from "../components/ForecastList/ForecastList";
 import Loader from "../components/Loader/Loader";
-import ErrorBanner from "../components/ErrorBanner/ErrorBanner";
+import { ErrorBanner } from "../components/ErrorBanner/ErrorBanner";
 import { getRandomCityName } from "../utils/getRandomCityName";
 
 import useCityWeather from "../hooks/useCityWeather";

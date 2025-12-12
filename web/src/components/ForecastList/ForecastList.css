@@ -5,6 +5,7 @@
   display: flex;
   max-width: 45%;
   margin: 0 auto;
+  cursor: default;
 }
 
 .forecast-item {

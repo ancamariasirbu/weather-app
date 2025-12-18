@@ -7,10 +7,11 @@
     "dev:web": "npm --prefix web run dev",
     "dev": "concurrently \"npm run dev:server\" \"npm run dev:web\"",
     "install-all": "npm install && npm --prefix web install",
-    "build": "cd web && npm run build",
+    "build": "vite build --config web/vite.config.js",
     "start": "node server/src/index.js"
   },
   "devDependencies": {
-    "concurrently": "^9.2.1"
+    "concurrently": "^9.2.1",
+    "vite": "^7.1.7"
   }
 }

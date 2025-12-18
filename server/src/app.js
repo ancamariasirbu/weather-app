@@ -1,5 +1,6 @@
 require("dotenv").config();
 
+const path = require("path");
 const express = require("express");
 const cors = require("cors");
 const app = express();
@@ -14,7 +15,10 @@ const limiter = require("./middleware/rateLimiter");
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin:
+      process.env.NODE_ENV === "production"
+        ? undefined
+        : "http://localhost:5173",
   })
 );
 

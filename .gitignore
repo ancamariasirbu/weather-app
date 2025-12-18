@@ -4,7 +4,7 @@ web/node_modules/
 server/node_modules/
 
 # Build artifacts
-web/build/
+web/dist/
 server/dist/
 
 # Logs

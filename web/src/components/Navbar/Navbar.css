@@ -9,6 +9,7 @@
 
   display: flex;
   align-items: center;
+  justify-content: space-between;
 
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(3px);
@@ -24,10 +25,15 @@
   margin-right: 20px;
 }
 
-.nav-item:hover {
-  opacity: 0.7;
-}
-
 .nav-item.active {
   color: rgb(27, 51, 78);
+}
+
+@media (min-width: 768px) {
+  .navbar {
+    justify-content: flex-start;
+  }
+  .nav-item:hover {
+    opacity: 0.7;
+  }
 }

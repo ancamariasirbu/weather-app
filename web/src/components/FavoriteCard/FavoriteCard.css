@@ -1,40 +1,95 @@
 .favorites-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
-  margin: 60px auto;
-  padding: 20px;
-  box-sizing: border-box;
-  max-width: 1150px;
+  margin-top: 60px;
 }
 
 .favorite-card {
-  width: 260px;
-  box-sizing: border-box;
-  max-height: 250px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  height: 120px;
+
   position: relative;
 
   background-color: rgba(19, 114, 181, 0.227);
   border: 1px solid rgba(73, 72, 72, 0.3);
   border-radius: 25px;
 
-  padding: 20px;
+  padding: 20px 20px 20px 30px;
+  margin: 20px;
   color: #ffffff;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.favorite-card:hover {
-  cursor: pointer;
-  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(10px);
 }
 
 .current-icon {
   font-size: 3rem;
-  display: block;
-  margin-top: 20px;
 }
 
-.favorite-card h2 {
-  margin-bottom: 40px;
+.favorite-card-city-country {
+  margin: 5px;
+  font-size: 1em;
+}
+
+.current-icon-container {
+  flex: 3;
+  margin: auto;
+}
+
+.current-weather-info {
+  flex: 8;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (min-width: 500px) {
+  .current-icon {
+    font-size: 5rem;
+  }
+}
+
+@media (min-width: 600px) {
+  .favorite-card-city-country {
+    font-size: 1.5rem;
+  }
+  .current-icon {
+    padding-left: 3rem;
+  }
+}
+
+@media (min-width: 819px) {
+  .favorites-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 60px auto;
+    max-width: 80%;
+  }
+
+  .favorite-card {
+    display: flex;
+    width: 220px;
+    height: 200px;
+    margin: 20px;
+
+    padding: 20px;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .favorite-card:hover {
+    cursor: pointer;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+  }
+
+  .current-icon {
+    font-size: 3rem;
+    display: block;
+    margin-top: 20px;
+  }
+
+  .favorite-card h2 {
+    margin-bottom: 40px;
+  }
 }

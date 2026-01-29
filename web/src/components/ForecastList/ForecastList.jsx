@@ -22,10 +22,11 @@ function ForecastList({ days = [] }) {
 
         return (
           <li key={day.date} className="forecast-item">
-            <h3 className="forecast-weekday">{weekday}</h3>
             <div className="forecast-condition">
               <span className="forecast-icon">{icon}</span>
             </div>
+            <h3 className="forecast-weekday">{weekday}</h3>
+
             <div className="forecast-temps">
               {min}° / {max}°
             </div>

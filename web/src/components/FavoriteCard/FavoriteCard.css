@@ -1,95 +1,141 @@
 .favorites-grid {
-  margin-top: 60px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
 }
 
 .favorite-card {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  height: 120px;
-
   position: relative;
-
-  background-color: rgba(19, 114, 181, 0.4);
-  border: 1px solid rgba(73, 72, 72, 0.3);
-  border-radius: 25px;
-
-  padding: 20px 20px 20px 30px;
-  margin: 20px;
-  color: #ffffff;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(10px);
+  cursor: pointer;
+  background: var(--glass);
+  border: 1px solid var(--brd);
+  border-radius: 24px;
+  padding: 22px;
+  color: var(--text);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 20px 50px -30px rgba(0, 0, 0, 0.8),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transition: transform 0.28s ease, border-color 0.28s ease,
+    box-shadow 0.28s ease;
+  animation: fade-up 0.8s ease both;
+  overflow: hidden;
 }
 
-.current-icon {
-  font-size: 3rem;
+/* warm corner glow */
+.favorite-card::after {
+  content: "";
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(
+    circle,
+    rgba(255, 180, 84, 0.25),
+    transparent 70%
+  );
+  pointer-events: none;
 }
 
-.favorite-card-city-country {
-  margin: 5px;
-  font-size: 1em;
+.favorite-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--amber);
+  box-shadow: 0 30px 60px -28px rgba(0, 0, 0, 0.9),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+.favorite-card:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 3px;
 }
 
-.current-icon-container {
-  flex: 3;
-  margin: auto;
+.fav-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.fav-glyph {
+  font-size: 46px;
+  line-height: 1;
+  filter: drop-shadow(0 6px 18px rgba(255, 180, 84, 0.35));
 }
 
-.current-weather-info {
-  flex: 8;
+.fav-temp {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: 56px;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  margin: 18px 0 4px;
+  background: linear-gradient(160deg, #fff, var(--amber));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.fav-temp sup {
+  font-size: 0.3em;
+  -webkit-text-fill-color: var(--magenta);
+  top: -1.4em;
+}
+
+.fav-city {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 22px;
+  letter-spacing: -0.01em;
+}
+.fav-ctry {
+  color: var(--muted);
+  font-size: 14px;
+  margin-top: 2px;
+}
+
+.fav-meta {
+  display: flex;
+  gap: 14px;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--brd);
+  font-size: 13px;
+  color: var(--muted);
+}
+.fav-meta b {
+  color: var(--text);
+  font-family: var(--font-display);
+  font-weight: 600;
+}
+
+/* dashed "add a city" tile at the end of the grid */
+.favorite-add {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 210px;
+  border: 1px dashed var(--brd);
+  border-radius: 24px;
+  color: var(--muted);
+  cursor: pointer;
+  text-align: center;
+  transition: 0.25s;
+  animation: fade-up 0.8s ease both;
+}
+.favorite-add:hover {
+  color: var(--amber);
+  border-color: var(--amber);
+  background: rgba(255, 180, 84, 0.05);
+}
+.favorite-add-plus {
+  font-size: 34px;
+  font-weight: 300;
+  line-height: 1;
 }
 
-@media (min-width: 500px) {
-  .current-icon {
-    font-size: 5rem;
-  }
-}
-
-@media (min-width: 600px) {
-  .favorite-card-city-country {
-    font-size: 1.5rem;
-  }
-  .current-icon {
-    padding-left: 3rem;
-  }
-}
-
-@media (min-width: 819px) {
+@media (max-width: 760px) {
   .favorites-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin: 60px auto;
-    max-width: 80%;
+    grid-template-columns: 1fr;
   }
-
-  .favorite-card {
-    display: flex;
-    width: 220px;
-    height: 200px;
-    margin: 20px;
-
-    padding: 20px;
-    flex-direction: column;
-    justify-content: center;
-  }
-
-  .favorite-card:hover {
-    cursor: pointer;
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-  }
-
-  .current-icon {
-    font-size: 3rem;
-    display: block;
-    margin-top: 20px;
-  }
-
-  .favorite-card h2 {
-    margin-bottom: 40px;
+  .favorite-add {
+    min-height: 120px;
   }
 }

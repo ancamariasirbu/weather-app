@@ -21,8 +21,10 @@ function FavoriteButton({ city }) {
           e.stopPropagation();
           handleClick();
         }}
+        aria-label={favorite ? "Remove from favorites" : "Add to favorites"}
+        aria-pressed={favorite}
       >
-        {favorite ? "★" : "☆"}
+        {favorite ? "♥" : "♡"}
       </button>
     </div>
   );

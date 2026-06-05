@@ -1,59 +1,51 @@
 .error-message {
-  background-color: #eb959c;
-  color: #7a0814;
-  padding: 10px;
-  border: 1px solid rgb(243, 158, 166);
-  border-radius: 0.5rem;
-  margin: 10px 0;
-  width: fit-content;
-  margin: 0 auto;
+  background: rgba(255, 93, 143, 0.12);
+  color: #ffd0db;
+  border: 1px solid rgba(255, 93, 143, 0.3);
+  border-radius: 16px;
+  padding: 16px 20px;
+  margin: 24px 0 12px;
+  text-align: center;
+  backdrop-filter: blur(16px);
 }
 
 .error-card {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 260px;
-  height: 250px;
+  min-height: 160px;
   box-sizing: border-box;
-  position: relative;
-
-  background-color: rgba(181, 19, 19, 0.227);
-  border: 1px solid rgba(73, 72, 72, 0.3);
-  border-radius: 25px;
-
-  padding: 20px;
-  color: #ffffff;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 93, 143, 0.1);
+  border: 1px solid rgba(255, 93, 143, 0.28);
+  border-radius: 24px;
+  padding: 24px;
+  color: var(--text);
+  backdrop-filter: blur(16px);
 }
 
 .error-text {
-  color: #7a0814;
-  display: block;
-  align-items: center;
+  color: #ffd0db;
+  text-align: center;
+  margin: 0;
 }
 
 .retry-btn {
-  top: 10px;
-  right: 10px;
-  border-radius: 0.5rem;
-  border: 1px solid rgb(225, 222, 222, 0.3);
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: inherit;
+  display: block;
+  margin: 0 auto;
+  border: none;
   cursor: pointer;
-  transition: border-color 0.25s;
-  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
-  margin-top: 1rem;
-  color: rgb(27, 51, 78);
+  background: linear-gradient(120deg, var(--amber), var(--magenta));
+  color: #2a0d18;
+  font-family: var(--font-display);
+  font-weight: 700;
+  padding: 10px 24px;
+  border-radius: 12px;
+  transition: transform 0.2s;
 }
-
 .retry-btn:hover {
-  border-color: #ffffff;
+  transform: translateY(-2px);
 }
-.retry-btn:focus,
 .retry-btn:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
 }

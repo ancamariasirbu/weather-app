@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import useCityWeather from "../hooks/useCityWeather";
 import WeatherCard from "../components/WeatherCard/WeatherCard";
 import ForecastList from "../components/ForecastList/ForecastList";
@@ -12,6 +12,16 @@ export default function CityPage() {
 
   return (
     <div>
+      <div className="page-head">
+        <div>
+          <div className="page-eyebrow">City forecast</div>
+          <h1 className="page-title">{weather?.city ?? cityName}</h1>
+        </div>
+        <Link to="/favorites" className="page-sub">
+          ← Back to favorites
+        </Link>
+      </div>
+
       {loading && <Loader />}
 
       {error && !loading && <ErrorText />}
@@ -25,11 +35,18 @@ export default function CityPage() {
           condition={weather.condition}
           windKph={weather.windKph}
           humidity={weather.humidity}
+          sunrise={weather.sunrise}
+          sunset={weather.sunset}
           icon={weather.icon}
         />
       )}
 
-      {forecast && !loading && <ForecastList days={forecast.daily.slice(1)} />}
+      {forecast && !loading && (
+        <ForecastList
+          days={forecast.daily.slice(0, 5)}
+          currentIcon={weather?.icon}
+        />
+      )}
     </div>
   );
 }

@@ -1,16 +1,17 @@
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import "./Navbar.css";
 
 function Navbar() {
   return (
     <nav className="navbar">
-      <div className="nav-home">
-        <NavLink to="/" className="nav-item">
+      <NavLink to="/" end className="logo">
+        luna<span>weather</span>
+      </NavLink>
+
+      <div className="pills">
+        <NavLink to="/" end className="nav-item">
           Home
         </NavLink>
-      </div>
-
-      <div className="nav-favorites">
         <NavLink to="/favorites" className="nav-item favorite">
           Favorites
         </NavLink>

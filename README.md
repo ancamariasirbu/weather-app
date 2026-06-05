@@ -39,7 +39,7 @@ This starts:
 
 Backend → http://localhost:4000
 
-Frontend → http://localhost:5173
+Frontend → http://localhost:5180
 
 Both run in one terminal using concurrently, and restart automatically on file changes.
 
@@ -51,7 +51,7 @@ Terminal 1
 
 Terminal 2
 
-`cd web && npm run dev` # → http://localhost:5173
+`cd web && npm run dev` # → http://localhost:5180
 
 ## API Configuration using Vite (not CRA)
 
@@ -115,8 +115,21 @@ curl http://localhost:4000/api/hello # → {"message":"Hello from server"}
 
 ## Environment Variables
 
-- `WEATHER_PROVIDER` = `openmeteo`
-- `WEATHER_API_KEY` = no key required (leave empty)
+The backend uses **OpenWeatherMap** (geocoding, current weather, and forecast),
+authenticated per API key.
+
+- `OPENWEATHER_API_KEY` — **required**. Get a free key at
+  <https://openweathermap.org/api>. New keys can take up to ~2 hours to activate.
+
+**Local development** — put it in `server/.env`:
+
+```
+OPENWEATHER_API_KEY=your_key_here
+```
+
+**Production (Render)** — set `OPENWEATHER_API_KEY` in the service's Environment tab.
+
+> Note: the Vite dev server runs on `http://localhost:5180` (see `web/vite.config.js`).
 
 ## Endpoints
 

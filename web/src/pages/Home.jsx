@@ -39,12 +39,17 @@ function Home() {
           condition={weather.condition}
           windKph={weather.windKph}
           humidity={weather.humidity}
+          sunrise={weather.sunrise}
+          sunset={weather.sunset}
           icon={weather.icon}
         />
       )}
 
       {forecast && !loading && !error && (
-        <ForecastList days={forecast.daily.slice(1)} />
+        <ForecastList
+          days={forecast.daily.slice(0, 5)}
+          currentIcon={weather?.icon}
+        />
       )}
     </div>
   );

@@ -9,6 +9,10 @@ const __dirname = path.dirname(__filename);
 export default defineConfig({
   root: __dirname,
   plugins: [react()],
+  // Dedicated dev port so this app doesn't collide with other local projects.
+  server: {
+    port: 5180,
+  },
   build: {
     outDir: "dist",
     emptyOutDir: true,

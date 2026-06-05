@@ -1,4 +1,8 @@
-require("dotenv").config();
+const path = require("path");
+// Load server/.env regardless of the process cwd (npm run dev starts the
+// server from the repo root). In production Render injects real env vars,
+// so the missing file is simply a no-op.
+require("dotenv").config({ path: path.join(__dirname, "..", ".env") });
 
 const express = require("express");
 const cors = require("cors");
@@ -21,7 +25,8 @@ app.use(
     origin:
       process.env.NODE_ENV === "production"
         ? undefined
-        : "http://localhost:5173",
+        : // allow any localhost port in dev (Vite may fall back from 5173)
+          /^http:\/\/localhost:\d+$/,
   })
 );
 

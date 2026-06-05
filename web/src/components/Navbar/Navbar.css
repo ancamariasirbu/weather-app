@@ -1,39 +1,63 @@
 .navbar {
-  width: 100%;
-  padding: 12px 30px;
-  box-sizing: border-box;
-
-  position: fixed;
-  top: 0;
-  left: 0;
-
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 16px;
+  animation: fade-up 0.8s ease both;
+}
 
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(3px);
-  z-index: 1000;
+.logo {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 19px;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+.logo span {
+  background: linear-gradient(90deg, var(--amber), var(--magenta));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.pills {
+  display: flex;
+  gap: 6px;
+  padding: 5px;
+  background: var(--glass);
+  border: 1px solid var(--brd);
+  border-radius: 999px;
+  backdrop-filter: blur(14px);
 }
 
 .nav-item {
-  font-size: 1rem;
-  font-weight: 500;
-  color: rgb(231, 230, 230);
-  text-decoration: none;
-  transition: 0.2s;
-  margin-right: 20px;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 8px 18px;
+  border-radius: 999px;
+  transition: 0.25s;
 }
-
+.nav-item:hover {
+  color: var(--text);
+}
 .nav-item.active {
-  color: rgb(27, 51, 78);
+  color: #2a0d18;
+  background: linear-gradient(90deg, var(--amber), var(--coral));
 }
 
-@media (min-width: 768px) {
+@media (max-width: 760px) {
+  /* center the toggle and move branding to the footer */
   .navbar {
-    justify-content: flex-start;
+    justify-content: center;
   }
-  .nav-item:hover {
-    opacity: 0.7;
+  .navbar .logo {
+    display: none;
+  }
+}
+
+@media (max-width: 420px) {
+  .nav-item {
+    padding: 8px 14px;
   }
 }

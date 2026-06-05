@@ -1,6 +1,34 @@
 #root {
   width: 100%;
-  height: 100%;
-  padding: 2rem;
-  text-align: center;
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
+}
+
+.app-shell {
+  position: relative;
+  z-index: 2;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 26px 24px 64px;
+}
+
+.app-main {
+  text-align: left;
+}
+
+/* branding footer: hidden on desktop (logo lives in the navbar),
+   shown at the bottom of the page on mobile */
+.app-footer {
+  display: none;
+}
+
+@media (max-width: 760px) {
+  .app-footer {
+    display: flex;
+    justify-content: center;
+    margin-top: 44px;
+    padding-top: 24px;
+    border-top: 1px solid var(--brd);
+  }
 }

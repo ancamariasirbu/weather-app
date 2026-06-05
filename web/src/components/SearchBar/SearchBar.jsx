@@ -1,6 +1,5 @@
 import { useState } from "react";
 import "./SearchBar.css";
-import searchIcon from "../../assets/search-icon-cream.svg";
 
 function SearchBar({ onSearch }) {
   const [value, setValue] = useState("");
@@ -17,8 +16,23 @@ function SearchBar({ onSearch }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="city-input"></label>
+    <form className="search" onSubmit={handleSubmit}>
+      <label htmlFor="city-input" className="visually-hidden">
+        Search city
+      </label>
+
+      <svg
+        className="search-glyph"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        aria-hidden="true"
+      >
+        <circle cx="11" cy="11" r="7" />
+        <path d="m21 21-4.3-4.3" />
+      </svg>
 
       <input
         className="search-input"
@@ -29,7 +43,7 @@ function SearchBar({ onSearch }) {
       />
 
       <button className="search-btn" type="submit">
-        <img className="search-icon" src={searchIcon} alt="Icon" />
+        Search
       </button>
     </form>
   );

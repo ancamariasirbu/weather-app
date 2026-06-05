@@ -11,7 +11,7 @@ describe("SearchBar", () => {
     render(<SearchBar onSearch={onSearchMock} />);
 
     const input = screen.getByPlaceholderText("Search city…");
-    const button = screen.getByRole("button", { name: /icon/i });
+    const button = screen.getByRole("button", { name: /search/i });
 
     await userEvent.type(input, "  Berlin  ");
     expect(onSearchMock).not.toHaveBeenCalled(); // onSearch should NOT be called while typing

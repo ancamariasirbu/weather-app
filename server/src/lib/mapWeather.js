@@ -1,55 +1,41 @@
-const codeMap = {
-  0: { condition: "Clear", icon: "☀️" },
-  1: { condition: "Mainly clear", icon: "☀️" },
-  2: { condition: "Partly cloudy", icon: "⛅" },
-  3: { condition: "Cloudy", icon: "☁️" },
-  45: { condition: "Fog", icon: "🌫️" },
-  48: { condition: "Depositing rime fog", icon: "🌫️" },
-  51: { condition: "Light drizzle", icon: "🌦️" },
-  53: { condition: "Drizzle", icon: "🌧️" },
-  55: { condition: "Dense drizzle", icon: "🌧️" },
-  56: { condition: "Light freezing drizzle", icon: "🌧️" },
-  57: { condition: "Freezing drizzle", icon: "🌧️" },
-  61: { condition: "Rain", icon: "🌧️" },
-  63: { condition: "Moderate rain", icon: "🌧️" },
-  65: { condition: "Heavy rain", icon: "🌧️" },
-  66: { condition: "Light freezing rain", icon: "🌧️" },
-  67: { condition: "Heavy freezing rain", icon: "🌧️" },
-  71: { condition: "Snow", icon: "❄️" },
-  73: { condition: "Moderate snow", icon: "❄️" },
-  75: { condition: "Heavy snow", icon: "❄️" },
-  77: { condition: "Snow grains", icon: "❄️" },
-  80: { condition: "Rain showers", icon: "🌦️" },
-  81: { condition: "Moderate rain showers", icon: "🌧️" },
-  82: { condition: "Violent rain showers", icon: "⛈️" },
-  85: { condition: "Snow showers", icon: "❄️" },
-  86: { condition: "Heavy snow showers", icon: "❄️" },
-  95: { condition: "Thunderstorm", icon: "⛈️" },
-  96: { condition: "Thunderstorm with hail", icon: "⛈️" },
-  99: { condition: "Severe thunderstorm with hail", icon: "⛈️" },
-  default: { condition: "Unknown", icon: "unknown" },
-};
+const mapOwmCondition = require("./owmConditions");
 
+// Format a Unix UTC timestamp (seconds) as local "HH:MM" using the city's
+// timezone offset (seconds from UTC, provided by OpenWeatherMap).
+function formatLocalTime(unixSeconds, tzOffsetSeconds) {
+  if (typeof unixSeconds !== "number") return null;
+  const d = new Date((unixSeconds + (tzOffsetSeconds || 0)) * 1000);
+  const hh = String(d.getUTCHours()).padStart(2, "0");
+  const mm = String(d.getUTCMinutes()).padStart(2, "0");
+  return `${hh}:${mm}`;
+}
+
+// Input is OpenWeatherMap's /data/2.5/weather response (units=metric).
 function mapWeather(providerData, cityInfo) {
-  const current = providerData.current_weather;
-  const code = current.weathercode;
-  const mappedCode = codeMap[code] || {
-    condition: "Unknown",
-    icon: "unknown",
-  };
+  const weather = (providerData.weather && providerData.weather[0]) || {};
+  const main = providerData.main || {};
+  const wind = providerData.wind || {};
+  const { condition, icon } = mapOwmCondition(weather.id);
 
   return {
     city: cityInfo.city,
     country: cityInfo.country,
     coords: { lat: cityInfo.lat, lon: cityInfo.lon },
-    temp: current.temperature,
-    feelsLike: current.temperature, // Open-Meteo doesn’t provide "feels like" — reuse temp
-    condition: mappedCode.condition,
-    windKph: current.windspeed,
-    humidity: 70, // Open-Meteo doesn’t return this, so fake it for now
-    sunrise: "07:00",
-    sunset: "16:30",
-    icon: mappedCode.icon,
+    temp: main.temp,
+    feelsLike: main.feels_like,
+    condition,
+    // units=metric returns wind in m/s; convert to km/h.
+    windKph: Math.round(wind.speed * 3.6 * 10) / 10,
+    humidity: main.humidity,
+    sunrise: formatLocalTime(
+      providerData.sys && providerData.sys.sunrise,
+      providerData.timezone
+    ),
+    sunset: formatLocalTime(
+      providerData.sys && providerData.sys.sunset,
+      providerData.timezone
+    ),
+    icon,
   };
 }
 

@@ -4,7 +4,7 @@ const createError = require("../lib/createError");
 const {
   getCurrentWeather,
   getCoordinates,
-} = require("../lib/providers/openMeteo");
+} = require("../lib/providers/openWeather");
 const mapWeather = require("../lib/mapWeather");
 const mapCoordinates = require("../lib/mapCoordinates");
 const validateCity = require("../helpers/validateCity");
@@ -37,6 +37,10 @@ router.get("/", async (req, res, next) => {
   try {
     const cityRawData = await getCoordinates(cityName);
     const mappedCityCoordinates = mapCoordinates(cityRawData);
+
+    if (!mappedCityCoordinates) {
+      return next(createError("CITY_NOT_FOUND", 404, "city not found"));
+    }
 
     const openMeteoData = await getCurrentWeather(
       mappedCityCoordinates.lat,

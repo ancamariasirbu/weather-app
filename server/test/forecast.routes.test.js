@@ -3,26 +3,27 @@ jest.spyOn(global.console, "log").mockImplementation(() => {}); // there was an 
 const request = require("supertest");
 const app = require("../src/app");
 
-jest.mock("../src/lib/providers/openMeteo", () => ({
+jest.mock("../src/lib/providers/openWeather", () => ({
   getDailyForecast: jest.fn(() => ({
-    daily: {
-      time: ["2025-11-18"],
-      temperature_2m_min: [1.1],
-      temperature_2m_max: [5.9],
-      weathercode: [61],
-    },
-  })),
-  getCoordinates: jest.fn(() => ({
-    results: [
+    city: { name: "Berlin", timezone: 3600 },
+    list: [
       {
-        name: "Berlin",
-        country: "Germany",
-        country_code: "DE",
-        latitude: 52.52437,
-        longitude: 13.41053,
+        dt: 1700000000,
+        dt_txt: "2023-11-14 21:00:00",
+        main: { temp_min: 1.1, temp_max: 5.9 },
+        weather: [{ id: 500 }],
+      },
+      {
+        dt: 1700010800,
+        dt_txt: "2023-11-15 00:00:00",
+        main: { temp_min: 0.4, temp_max: 6.8 },
+        weather: [{ id: 800 }],
       },
     ],
   })),
+  getCoordinates: jest.fn(() => [
+    { name: "Berlin", country: "DE", lat: 52.52437, lon: 13.41053 },
+  ]),
 }));
 
 describe("/api/forecast", () => {
@@ -31,9 +32,17 @@ describe("/api/forecast", () => {
     const res = await request(app).get("/api/forecast?city=Berlin");
 
     expect(res.statusCode).toBe(200);
-    expect(res.body.city).toBeDefined();
+    expect(res.body.city).toBe("Berlin");
     expect(Array.isArray(res.body.daily)).toBe(true);
     expect(res.body.daily.length).toBeGreaterThan(0);
+
+    const day = res.body.daily[0];
+    expect(day.date).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+    expect(typeof day.min).toBe("number");
+    expect(typeof day.max).toBe("number");
+    expect(day.max).toBeGreaterThanOrEqual(day.min);
+    expect(day.condition).toBeDefined();
+    expect(day.icon).toBeDefined();
   });
   //  Error path
   it("returns 400 if no city is provided", async () => {

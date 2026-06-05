@@ -11,10 +11,14 @@ function cacheMiddleware(req, res, next) {
 
   req.cacheStatus = "miss";      // mark as miss and continue
 
-  // Intercept res.json to store output into cache
+  // Intercept res.json to store output into cache.
+  // Only cache successful responses so transient errors aren't served for the
+  // full TTL (and re-served with a 200 on the next cache hit).
   const originalJson = res.json.bind(res);
   res.json = (body) => {
-    cache.set(key, body);
+    if (res.statusCode < 400) {
+      cache.set(key, body);
+    }
     return originalJson(body);
   };
 

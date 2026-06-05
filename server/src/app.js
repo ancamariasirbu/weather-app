@@ -4,6 +4,10 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 
+// Render (and most hosts) put the app behind a proxy that sets X-Forwarded-For.
+// Trust the first proxy so express-rate-limit can identify clients by real IP.
+app.set("trust proxy", 1);
+
 const weatherRouter = require("./routes/weather");
 const forecastRouter = require("./routes/forecast");
 

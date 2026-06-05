@@ -1,16 +1,36 @@
-function mapCoordinates(paceholderRawCityData) {
-  const currentCity = paceholderRawCityData.results[0];
+// Turn a 2-letter ISO country code (e.g. "GB") into a full name ("United
+// Kingdom") using the built-in Intl API; fall back to the raw code.
+let regionNames;
+try {
+  regionNames = new Intl.DisplayNames(["en"], { type: "region" });
+} catch {
+  regionNames = null;
+}
 
-const mapped = {
-    city: currentCity.name,
-    country: currentCity.country,
-    countryCode: currentCity.country_code,
-    lat: currentCity.latitude, 
-    lon: currentCity.longitude,
+function fullCountry(code) {
+  if (!code) return code;
+  try {
+    return (regionNames && regionNames.of(code)) || code;
+  } catch {
+    return code;
+  }
+}
+
+// Input is OpenWeatherMap's geocoding response: an array of matches.
+function mapCoordinates(rawCityData) {
+  const currentCity = Array.isArray(rawCityData) ? rawCityData[0] : null;
+
+  if (!currentCity) {
+    return null;
   }
 
-  
-  return mapped;
+  return {
+    city: currentCity.name,
+    country: fullCountry(currentCity.country),
+    countryCode: currentCity.country,
+    lat: currentCity.lat,
+    lon: currentCity.lon,
+  };
 }
 
 module.exports = mapCoordinates;
